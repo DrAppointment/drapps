@@ -76,6 +76,7 @@ function AndroidPush(){
 	});
 }
 app.get('/push', function(req, res){
+	AndroidPush();
 	res.send('SUCCESS');
 });
 
