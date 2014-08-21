@@ -17,13 +17,20 @@ mongo.Db.connect(mongoUri, function (err, db) {
 });
 
 app.get('/appointment', function(req, res){
-	mongo.Db.connect(mongoUri, function (err, db) {
+	/*mongo.Db.connect(mongoUri, function (err, db) {
 	  db.collection('mydocs', function(er, collection) {
-		console.log('----------------------------------------------------------------GET appointment');
+		
 		res.send(JSON.stringify(collection.find()));
 	  });
-	});
-
+	});*/
+	var json_data = { 
+						"a": 1,
+						"b": "test",
+						"c": {"a": 1},
+						"d": [1, 2, 3]
+					};
+					
+	res.send(json_data);
 });
 
 
@@ -31,7 +38,7 @@ app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
 
 app.get('/', function(request, response) {
-  response.send('Hello World!!!');
+  response.send('Hello World !!! <br/> v1.2');
 })
 
 app.listen(app.get('port'), function() {
