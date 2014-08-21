@@ -16,11 +16,21 @@ mongo.Db.connect(mongoUri, function (err, db) {
   });
 });
 
+app.get('/appointment', function(req, res){
+	mongo.Db.connect(mongoUri, function (err, db) {
+	  db.collection('mydocs', function(er, collection) {
+		res.send(collection.find());
+	  });
+	});
+
+});
+
+
 app.set('port', (process.env.PORT || 5000))
 app.use(express.static(__dirname + '/public'))
 
 app.get('/', function(request, response) {
-  response.send('Hello World!!!')
+  response.send('Hello World!!!');
 })
 
 app.listen(app.get('port'), function() {
