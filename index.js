@@ -19,7 +19,8 @@ mongo.Db.connect(mongoUri, function (err, db) {
 app.get('/appointment', function(req, res){
 	mongo.Db.connect(mongoUri, function (err, db) {
 	  db.collection('mydocs', function(er, collection) {
-		res.send(collection.find());
+		console.log('----------------------------------------------------------------GET appointment');
+		res.send(JSON.stringify(collection.find()));
 	  });
 	});
 
