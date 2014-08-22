@@ -1,5 +1,5 @@
 var express = require('express')
-	, pushService = require('./pushService').PushService
+	, pushService = require('./pushService')
 	//, routes = require('./routes')
 	//, user = require('./routes/user')
 	//, http = require('http')
