@@ -1,4 +1,6 @@
-PushService = function (params){
+PushService = function(){};
+
+PushService.prototype.push= function(params) {
 	var push = {
 		platform : params.platform,
 		deviceID : params.deviceID,
@@ -39,6 +41,6 @@ PushService = function (params){
 			console.log(result);
 		});
 	}
-}
+};
 
 exports.PushService = PushService;
