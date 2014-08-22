@@ -34,8 +34,8 @@ PushService.prototype.push= function(params) {
 		//message.collapseKey = 'demo';
 
 		// At least one reg id required
-		registrationIds.push(push.device);
-
+		registrationIds.push(push.deviceID);
+		
 		//Parameters: message-literal, registrationIds-array, No. of retries, callback-function
 		sender.send(message, registrationIds, config.retries, function (result) {
 			console.log(result);
