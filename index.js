@@ -1,5 +1,5 @@
 var express = require('express')
-	, pushService = require('./pushService')
+	, pushService = require('./pushService').PushService
 	//, routes = require('./routes')
 	//, user = require('./routes/user')
 	//, http = require('http')
@@ -53,7 +53,7 @@ app.listen(app.get('port'), function() {
 
 //PUSH notification
 app.get('/push', function(req, res){
-	PushService({
+	var push= new pushService({
 		platform: 'Android',
 		deviceID: 'APA91bF-wA3Zz0X3VKx7nm0NniG52MeSrOBVU8jmGSu2N1tdy4iAHqmGWNRK7KdRHcRMF4luWBb-47W4AVnDZBAhTe_udoVR7Q7Wl2LberWR2n9YZc7dvcl4_Y9XRWSp6R2qSMk9qvpTwqU8HPzaXa966OrFGJ7hFQ',
 		msgcount: 1,

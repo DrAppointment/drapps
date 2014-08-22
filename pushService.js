@@ -1,4 +1,4 @@
-function PushService(params){
+PushService = function (params){
 	var push = {
 		platform : params.platform,
 		deviceID : params.deviceID,
@@ -40,3 +40,5 @@ function PushService(params){
 		});
 	}
 }
+
+exports.PushService = PushService;
