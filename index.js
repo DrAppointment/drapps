@@ -1,11 +1,16 @@
 var express = require('express')
+	, http = require('http')
 	, pushService = require('./pushService').PushService
-	, mongo = require('mongodb');
+	, webServices = require('./webServices').WebServices;
+	//, mongo = require('mongodb');
+
+var bodyParser = require('body-parser');
 
 var app = express();
+app.use(bodyParser.json());
 
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/mydb';
 
+/*
 mongo.Db.connect(mongoUri, function (err, db) {
 	db.collection('mydocs', function(er, collection) {
 		collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
@@ -22,23 +27,23 @@ app.get('/appointment', function(req, res){
 		});
 	}); 
 });
-
+*/
 //app.get('/servicename', function(req, res){}); ---should accept parameters
 //app.post('/servicename', function(req, res){}); ---should accept parameters
 
 //Google Calendar - Node package installation
 
 
-app.set('port', (process.env.PORT || 5000))
-app.use(express.static(__dirname + '/public'))
+app.set('port', (process.env.PORT || 5000));
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(request, response) {
   response.send('Dr. Appointment !!! <br/> v1.3');
-})
+});
 
 app.listen(app.get('port'), function() {
   console.log("Node app is running at localhost:" + app.get('port'))
-})
+});
 
 //PUSH notification
 var devicePush = new pushService();
@@ -52,3 +57,13 @@ app.get('/push', function(req, res){
 	res.send('SUCCESS');
 });
 
+var ws = new webServices();
+//app.post('/setProfile', ws.setProfile);
+app.post('/setProfile', function(req, res){
+	console.log(req.headers);
+    console.log(req.body);
+	res.send(req.headers + '----' + req.body);
+});
+app.get('/getProfile/:id', ws.getProfile);
+app.get('/getSpecialtyList', ws.getSpecialtyList);
+app.get('/getSlot', ws.getSlot);

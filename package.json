@@ -23,6 +23,7 @@
   "dependencies": {
     "express": "^4.8.5",
     "mongodb": "^1.4.8",
-    "node-gcm": "^0.9.12"
+    "node-gcm": "^0.9.12",
+    "body-parser": "^1.6.5"
   }
 }
