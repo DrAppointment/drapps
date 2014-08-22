@@ -14,20 +14,13 @@ mongo.Db.connect(mongoUri, function (err, db) {
 });
 
 app.get('/appointment', function(req, res){
-	/*mongo.Db.connect(mongoUri, function (err, db) {
-	  db.collection('mydocs', function(er, collection) {
-		
-		res.send(JSON.stringify(collection.find()));
-	  });
-	});*/
-	var json_data = { 
-						"a": 1,
-						"b": "test",
-						"c": {"a": 1},
-						"d": [1, 2, 3]
-					};
-					
-	res.send(json_data);
+	mongo.Db.connect(mongoUri, function (err, db) {
+		var mydocs = db.collection('mydocs');
+		//console.log(mydocs.find());
+		mydocs.find().toArray(function (err, docs) {
+			res.send(docs);
+		});
+	}); 
 });
 
 //app.get('/servicename', function(req, res){}); ---should accept parameters
