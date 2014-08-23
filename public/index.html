@@ -3,57 +3,45 @@
 	<head>
 	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 	<meta content="utf-8" http-equiv="encoding">
-	<script src="jquery-1.11.1.min.js"></script>
+	<script src="Angular.js"></script>
 	<script>
-		var send_data = [
-		   {
-			  "lastname":"Cuomo",
-			  "location":"North",
-			  "username":"JerryCuomo",
-			  "phonenumber":"1-XXX-XXX-XXXX",
-			  "firstname":"Jerry"
-		   },
-		   {
-			  "lastname":"McGee",
-			  "location":"East",
-			  "username":"JasonMcGee",
-			  "phonenumber":"1-XXX-XXX-XXXX",
-			  "firstname":"Jason"
-		   }
-		];
-		
-		function sendJSON(){
-			/* $.get( "http://localhost:8080/appointment", function( data ) {
-				console.log('GET : ' + JSON.stringify(data));
-			}); */
-			/*$.post( "test.svc", send_data , function( data ) {
-				$( ".result" ).html( data );
-			});*/
-			$.ajax({
-				type: "POST",
-				url: 'http://10.227.87.43:5000/setProfile',
-				data: send_data,
-				success: function( data ) {
-					console.log(JSON.stringify(data));
-					//alert( data[0].name );
-				},
-				error: function(){ 
-					alert('Error!!!');
+		angular.module("app", []).controller('AppController', ['$scope','$http',
+            function ($scope, $http) {
+				var send_data = [
+					{
+						"lastname":"Cuomo",
+						"location":"North",
+						"username":"JerryCuomo",
+						"phonenumber":"1-XXX-XXX-XXXX",
+						"firstname":"Jerry"
+					},
+					{
+						"lastname":"McGee",
+						"location":"East",
+						"username":"JasonMcGee",
+						"phonenumber":"1-XXX-XXX-XXXX",
+						"firstname":"Jason"
+					}
+				];
+                $scope.sendJSON = function(){
+					$http({
+						method: 'POST',
+						url: '/setProfile',
+						data: send_data,
+						headers: { 'Content-Type': 'application/json' }
+					}).success(function (data, status) {
+						console.log(data)
+					}).error(function (data, status) {
+						console.log(data)
+					});
 				}
-			});
-		}
+            }
+        ]);
 	</script>
 	</head>
-	<body>
+	<body ng-app="app" ng-controller="AppController">
 		<div> 
-			<button type="button" onclick="sendJSON()">Click Me!</button>
+			<button type="button" ng-click="sendJSON()">Click Me!</button>
 		<div>
-		<div>
-			<form action="/setProfile" method="post">
-				First name: <input type="text" name="firstname"><br>
-				Last name: <input type="text" name="lastname">
-				<input type="submit" value="Submit">
-			</form>
-		</div>
 	</body>
 </html>

@@ -2,13 +2,11 @@ var express = require('express')
 	, http = require('http')
 	, pushService = require('./pushService').PushService
 	, webServices = require('./webServices').WebServices;
-	//, mongo = require('mongodb');
 
 var bodyParser = require('body-parser');
 
 var app = express();
 app.use(bodyParser.json());
-
 
 /*
 mongo.Db.connect(mongoUri, function (err, db) {
@@ -58,12 +56,7 @@ app.get('/push', function(req, res){
 });
 
 var ws = new webServices();
-//app.post('/setProfile', ws.setProfile);
-app.post('/setProfile', function(req, res){
-	console.log(req.headers);
-    console.log(req.body);
-	res.send(req.headers + '----' + req.body);
-});
+app.post('/setProfile', ws.setProfile);
 app.get('/getProfile/:id', ws.getProfile);
 app.get('/getSpecialtyList', ws.getSpecialtyList);
 app.get('/getSlot', ws.getSlot);

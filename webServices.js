@@ -21,10 +21,9 @@ var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb:/
 function WebServices(){};
 
 WebServices.prototype.setProfile = function(req, res) {
-	console.log(req);
-	console.log(req.params('title'));
-	console.log('TEST');
-	res.jsonp('SUCCESS');
+	console.log(req.headers);
+    console.log(req.body);
+	res.jsonp(req.body);
 };
 
 WebServices.prototype.getProfile = function(req, res) {
