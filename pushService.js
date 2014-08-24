@@ -6,6 +6,7 @@ PushService.prototype.push= function(params) {
 		deviceID : params.deviceID,
 		msgcount : params.msgcount,
 		message : params.message 
+		//message : "Welcome to Dr.Appointments App" 
 	};
 	
 	if ( push.platform === 'Android' ) {
