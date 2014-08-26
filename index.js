@@ -57,6 +57,11 @@ app.get('/push', function(req, res){
 
 var ws = new webServices();
 app.post('/setProfile', ws.setProfile);
+app.post('/updateProfile/:id', ws.updateProfile);
 app.get('/getProfile/:id', ws.getProfile);
+app.get('/getAppointments/:id/:date', ws.getAppointments);
 app.get('/getSpecialtyList', ws.getSpecialtyList);
 app.get('/getSlot', ws.getSlot);
+app.post('/setConfig/:id', ws.setConfig);
+
+app.post('/getDrList', ws.getDrList);

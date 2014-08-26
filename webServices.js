@@ -27,8 +27,9 @@ function WebServices(){};
 WebServices.prototype.setProfile = function(req, res) {
 	mongo.Db.connect(mongoUri, function (err, db) {
 		var userObj = db.collection('users');
+		console.log(req.body.googleInfo.id);
 		userObj.findOne({'google_id': req.body.googleInfo.id}, function(err, data) {
-			if(data === null){
+			if(data === null){ 
 			    var profileDetails ={
 						"google_id":req.body.googleInfo.id,
 						"email":req.body.googleInfo.email,
@@ -39,6 +40,7 @@ WebServices.prototype.setProfile = function(req, res) {
 						"link":req.body.googleInfo.link,
 						"picture":req.body.googleInfo.picture,
 						"gender":req.body.googleInfo.gender,
+						"mobile": "",
 						"locale":"en",
 						"regid":req.body.regid,
 						"oauth": req.body.oauth,
@@ -48,11 +50,43 @@ WebServices.prototype.setProfile = function(req, res) {
 							"calendar":true,
 							"sound":true,
 							"vibration":true
-						},
-						"qualification": {
+						}
+						
+						/* "qualification": {
+							"degree": "",
+							"passing_year": "",
+							"institute": "",
+							"experience": ""
 						},
 						"specialization": "",
-						"clinic": []
+						"clinic": [
+							{
+								"clinic_id": "99",
+								"address": {
+									"name": "",
+									"locality": "",
+									"city": "Kolkata",
+									"pin": 700091,
+									"state": "WB",
+									"country": "IN",
+									"latlong": {
+										"latitude": "",
+										"longitude": ""
+									}
+								},
+								"fees": "",
+								"slot": "",
+								"timeslot": {
+									"mon" : "",
+									"tue" : "",
+									"wed" : "",
+									"thu" : "",
+									"fri" : "",
+									"sat" : "",
+									"sun" : ""
+								}
+							}
+						] */
 				}
 				devicePush.push({
 					platform: 'Android',
@@ -69,6 +103,18 @@ WebServices.prototype.setProfile = function(req, res) {
 			}
 			res.jsonp("Done");
         });
+	}); 
+};
+
+WebServices.prototype.updateProfile = function(req, res) {
+	mongo.Db.connect(mongoUri, function (err, db) {
+		var collectionObj = db.collection('users');
+		collectionObj.update({'google_id': req.params.id},{
+					$set:{
+							"mobile": req.body.mobile
+						}},{multi:true},function(err, data) {
+			res.jsonp(data);
+		});
 	}); 
 };
 
